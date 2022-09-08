@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Search } from './components/search/Search';
 import { GEO_API_URL, geoApiOptions } from './api';
+import { CurrentWeather } from './components/current-weather/CurrentWeather';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         loadOptions={loadOptions}
         onSearchChange={onHandleSearchChange}
       />
+      <CurrentWeather />
     </div>
   );
 }
