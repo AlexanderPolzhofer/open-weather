@@ -6,8 +6,8 @@ import { CurrentWeather } from './components/current-weather/CurrentWeather';
 
 function App() {
 
-  const [currentWeather, setCurrentWeather] = React.useState(null);
-  const [forecastWeather, setForecastWeather] = React.useState(null);
+  const [currentWeather, setCurrentWeather] = React.useState<any>(null);
+  const [forecastWeather, setForecastWeather] = React.useState<any>(null);
 
   const loadOptions = (inputValue: string) => {
     return fetch(`${GEO_API_URL}/cities?minPopulation=1000000&namePrefix=${inputValue}`, geoApiOptions)
@@ -28,8 +28,8 @@ function App() {
   const onHandleSearchChange = (searchData: any) => {
     const [lat, lon] = searchData.value.split(' ');
 
-    const currentWeatherFetch = fetch(`${WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`);
-    const forecastWeatherFetch = fetch(`${WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}`);
+    const currentWeatherFetch = fetch(`${WEATHER_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`);
+    const forecastWeatherFetch = fetch(`${WEATHER_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`);
 
     Promise.all([currentWeatherFetch, forecastWeatherFetch])
       .then(async response => {
@@ -51,7 +51,7 @@ function App() {
         loadOptions={loadOptions}
         onSearchChange={onHandleSearchChange}
       />
-      {currentWeather && <CurrentWeather />}
+      {currentWeather && <CurrentWeather data={currentWeather} />}
     </div>
   );
 }
